@@ -4,9 +4,14 @@ using System.Collections.Generic;
 
 public class GalaxySculptor : MonoBehaviour
 {
+	public Transform blackHole; //BlackHole GameObject
+	public GameObject sun; //the sun
     public List<GameObject> planets;    //List of planets.
     public float planetMinSize;   //Min size a planet could be.
     public float planetMaxSize;   //Max size a planet could be.
+
+	public float sunMinSize;   //Min size a sun could be.
+	public float sunMaxSize;   //Max size a sun could be.
     
     public float planetsMinX; //Max for the X a planet could spawn.
     public float planetsMaxX; //Min for the X a planet could spawn.
@@ -29,6 +34,7 @@ public class GalaxySculptor : MonoBehaviour
 
     void Start ()
     {
+		Suns ();
         Planets();
     }
 	void Planets ()
@@ -61,8 +67,18 @@ public class GalaxySculptor : MonoBehaviour
             rotationDirection = rotationOptions[Random.Range(0, rotationOptions.Length)];   //Choose a random rotation for the planet.
 
             //Place the gameObject randomly in the scene.
-           
-            
-        }
+           }
+	}
+	public void Suns()
+	{
+
+		desiredPlanetPosition = new Vector3(Random.Range(planetsMinX, planetsMaxX) , Random.Range(planetsMinY, planetsMaxY), Random.Range(planetsMinZ, planetsMaxZ)); //finding a desired location to place the sun similarly to the planets
+		GameObject clone = Instantiate(sun, transform.position, transform.rotation) as GameObject; //Creating the sun
+		clone.transform.position = desiredPlanetPosition;  //Move the sun to the desired position
+		//clone.AddComponent<ObjectRotation>(); //adding the roation script to the sun
+		clone.AddComponent<Orbit>(); //adding the orbiting script to the sun
+		clone.tag = "Sun"; //asiging the tag, "Sun," the game object
+		sizeChosen = Random.Range(sunMinSize, sunMaxSize);    //Chooses a random size based upon the min and max sizes chosen.
+		clone.transform.localScale = new Vector3 (sizeChosen,sizeChosen,sizeChosen); //Scales the gameobject to that size.
 	}
 }
