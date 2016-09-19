@@ -72,5 +72,9 @@ public class ObjectRotation : MonoBehaviour
             transform.Rotate(rotationDirection * (moonRotationSpeed * 50) * Time.deltaTime);   //Object rotates based upon the bool chosen * the speed.
         if (isSun)
             transform.Rotate(rotationDirection * (sunRotationSpeed * 50) * Time.deltaTime);   //Object rotates based upon the bool chosen * the speed.
+        if (!isPlanet && !isMoon && !isSun)
+        {
+            transform.Rotate(rotationDirection * (.05f * 50) * Time.deltaTime);   //Object rotates based upon the bool chosen * the speed.
+        }
     }
 }
