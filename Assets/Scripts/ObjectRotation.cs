@@ -3,10 +3,10 @@ using System.Collections;
 
 public class ObjectRotation : MonoBehaviour
 {
-    [HideInInspector]
     public float planetRotationSpeed; //How fast does the object rotate
-    [HideInInspector]
     public float moonRotationSpeed;
+    public float sunRotationSpeed;
+
     [HideInInspector]
     public Vector3 rotationDirection;   //This will change depending on which bool you check.
     bool rotateUp;   //Rotate object up.
@@ -16,6 +16,7 @@ public class ObjectRotation : MonoBehaviour
 
     bool isPlanet;
     bool isMoon;
+    bool isSun;
 
     private string rotationChosen;
 
@@ -28,6 +29,7 @@ public class ObjectRotation : MonoBehaviour
         galaxySculptor = gameManager.GetComponent<GalaxySculptor>();    //Get the GalaxySculpter component on the gameManager object.
         planetRotationSpeed = Random.Range(galaxySculptor.planetsMinRotationSpeed, galaxySculptor.planetsMaxRotationSpeed);
         moonRotationSpeed = Random.Range(galaxySculptor.moonMinRotationSpeed, galaxySculptor.moonMaxRotationSpeed);
+        sunRotationSpeed = Random.Range(galaxySculptor.sunMinRotationSpeed, galaxySculptor.sunMaxRotationSPeed);
         rotationChosen = galaxySculptor.rotationDirection;
         //Set the rotation of this object based upon the values given in the GalaxySculpter script.
 
@@ -55,14 +57,20 @@ public class ObjectRotation : MonoBehaviour
             case "Moon":
                 isMoon = true;
                 break;
+            case "Sun":
+                isSun = true;
+                break;
         }
     }
 
     void Update()
     {
+        //Hector I changed the 2 on line 70, 72, and 74
         if(isPlanet)
-            transform.Rotate(rotationDirection * planetRotationSpeed * Time.deltaTime);   //Object rotates based upon the bool chosen * the speed.
+            transform.Rotate(rotationDirection * (planetRotationSpeed * 50) * Time.deltaTime);   //Object rotates based upon the bool chosen * the speed.
         if(isMoon)
-            transform.Rotate(rotationDirection * moonRotationSpeed * Time.deltaTime);   //Object rotates based upon the bool chosen * the speed.
+            transform.Rotate(rotationDirection * (moonRotationSpeed * 50) * Time.deltaTime);   //Object rotates based upon the bool chosen * the speed.
+        if (isSun)
+            transform.Rotate(rotationDirection * (sunRotationSpeed * 50) * Time.deltaTime);   //Object rotates based upon the bool chosen * the speed.
     }
 }

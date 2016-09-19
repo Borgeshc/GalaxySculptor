@@ -8,6 +8,9 @@ public class GalaxySculptor : MonoBehaviour
     //Planets
     public List<GameObject> planets;    //List of planets.
     public List<GameObject> activePlanets;  //List of active planets.
+
+    public float planetSpeed;
+
     public float planetMinSize;   //Min size a planet could be.
     public float planetMaxSize;   //Max size a planet could be.
     
@@ -34,6 +37,9 @@ public class GalaxySculptor : MonoBehaviour
     //Moons
     public List<GameObject> moons;    //List of planets.
     public List<GameObject> activeMoons;
+
+    public float moonSpeed;
+
     public float moonMinSize;   //Min size a planet could be.
     public float moonMaxSize;   //Max size a planet could be.
 
@@ -64,6 +70,9 @@ public class GalaxySculptor : MonoBehaviour
     public float sunsMinZ; //Min for the Z a planet could spawn.
     public float sunsMaxZ; //Max for the Z a planet could spawn.
 
+    public float sunMinRotationSpeed;
+    public float sunMaxRotationSPeed;
+
     private Vector3 desiredSunPosition; //Where the planet is trying to spawn.
     private float sunSizeChosen;
     public Vector3 localRotationSpeed;
@@ -91,7 +100,7 @@ public class GalaxySculptor : MonoBehaviour
             {
                 if (!occupiedMoonPositions.Contains(desiredMoonPosition))    //If the desiredPosition of the moon is not on another moon
                 {
-                    moonClone.transform.position = desiredMoonPosition;  //Move the moon to the desired position
+                    moonClone.transform.localPosition = desiredMoonPosition;  //Move the moon to the desired position
                     occupiedMoonPositions.Add(moonClone.transform.position); //Add the moon new position to the list
                     i = occupiedMoonPositions.Count; //End the loop
                 }
@@ -101,8 +110,9 @@ public class GalaxySculptor : MonoBehaviour
             }
             moonClone.tag = "Moon";
             moonClone.AddComponent<ObjectRotation>();  //Add the rotation script to the gameobject.
-            moonClone.AddComponent<Orbit>(); //adding the orbiting script to the moon.
-            moonClone.GetComponent<Orbit>().target = activePlanets[Random.Range(0, activePlanets.Count)].transform;
+         //   moonClone.AddComponent<Orbit>(); //adding the orbiting script to the moon.
+         //   moonClone.GetComponent<Orbit>().target = activePlanets[Random.Range(0, activePlanets.Count)].transform;
+          //  moonClone.GetComponent<Orbit>().speed = moonSpeed;
             //Scale the gameObject according to public variables
             rotationDirection = rotationOptions[Random.Range(0, rotationOptions.Length)];   //Choose a random rotation for the moon.
 
@@ -125,7 +135,7 @@ public class GalaxySculptor : MonoBehaviour
             {
                 if (!occupiedPlanetPositions.Contains(desiredPlanetPosition))    //If the desiredPosition of the plnaet is not on another planet
                 {
-                    planetClone.transform.position = desiredPlanetPosition;  //Move the planet to the desired position
+                    planetClone.transform.localPosition = desiredPlanetPosition;  //Move the planet to the desired position
                     occupiedPlanetPositions.Add(planetClone.transform.position); //Add the planets new position to the list
                     i = occupiedPlanetPositions.Count; //End the loop
                 }
@@ -135,9 +145,10 @@ public class GalaxySculptor : MonoBehaviour
             }
             planetClone.tag = "Planet";
             planetClone.AddComponent<ObjectRotation>();  //Add the rotation script to the gameobject.
-            planetClone.AddComponent<Orbit>(); //adding the orbiting script to the planet
-            planetClone.GetComponent<Orbit>().target = activeSuns[Random.Range(0, activeSuns.Count)].transform;
+           // planetClone.AddComponent<Orbit>(); //adding the orbiting script to the planet
+           // planetClone.GetComponent<Orbit>().target = activeSuns[Random.Range(0, activeSuns.Count)].transform;
             //Scale the gameObject according to public variables
+           // planetClone.GetComponent<Orbit>().speed = planetSpeed;
             planetSizeChosen = Random.Range(planetMinSize, planetMaxSize);    //Chooses a random size based upon the min and max sizes chosen.
             
             rotationDirection = rotationOptions[Random.Range(0, rotationOptions.Length)];   //Choose a random rotation for the planet.
@@ -155,5 +166,7 @@ public class GalaxySculptor : MonoBehaviour
         sunClone.tag = "Sun"; //asiging the tag, "Sun," the game object
         sunSizeChosen = Random.Range(sunMinSize, sunMaxSize);    //Chooses a random size based upon the min and max sizes chosen.
         sunClone.transform.localScale = new Vector3(sunSizeChosen, sunSizeChosen, sunSizeChosen); //Scales the gameobject to that size.
+        sunClone.AddComponent<ObjectRotation>();  //Add the rotation script to the gameobject.
+        rotationDirection = rotationOptions[Random.Range(0, rotationOptions.Length)];   //Choose a random rotation for the planet.
     }
 }
