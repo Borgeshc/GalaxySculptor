@@ -29,7 +29,7 @@ public class ObjectRotation : MonoBehaviour
         galaxySculptor = gameManager.GetComponent<GalaxySculptor>();    //Get the GalaxySculpter component on the gameManager object.
         planetRotationSpeed = Random.Range(galaxySculptor.planetsMinRotationSpeed, galaxySculptor.planetsMaxRotationSpeed);
         moonRotationSpeed = Random.Range(galaxySculptor.moonMinRotationSpeed, galaxySculptor.moonMaxRotationSpeed);
-        sunRotationSpeed = Random.Range(galaxySculptor.sunMinRotationSpeed, galaxySculptor.sunMaxRotationSPeed);
+        sunRotationSpeed = Random.Range(galaxySculptor.sunMinRotationSpeed, galaxySculptor.sunMaxRotationSpeed);
         rotationChosen = galaxySculptor.rotationDirection;
         //Set the rotation of this object based upon the values given in the GalaxySculpter script.
 

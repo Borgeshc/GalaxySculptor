@@ -4,82 +4,129 @@ using System.Collections.Generic;
 
 public class GalaxySculptor : MonoBehaviour
 {
+    public enum Status { None, Suns, Planets, Moons };
+
+    [Header("Object Adjustment Variables")]
+    [HideInInspector]
+    public Status state;
 
     //Planets
     public List<GameObject> planets;    //List of planets.
+    [HideInInspector]
     public List<GameObject> activePlanets;  //List of active planets.
 
-    public float planetSpeed;
 
+    [HideInInspector]
+    public float planetSpeed;     //Controls the speed of the planet.
+
+    [HideInInspector]
     public float planetMinSize;   //Min size a planet could be.
+    [HideInInspector]
     public float planetMaxSize;   //Max size a planet could be.
-    
+
+    [HideInInspector]
     public float planetsMinX; //Max for the X a planet could spawn.
+    [HideInInspector]
     public float planetsMaxX; //Min for the X a planet could spawn.
+    [HideInInspector]
     public float planetsMinY; //Min for the Y a planet could spawn.
+    [HideInInspector]
     public float planetsMaxY; //Max for the Y a planet could spawn.
+    [HideInInspector]
     public float planetsMinZ; //Min for the Z a planet could spawn.
+    [HideInInspector]
     public float planetsMaxZ; //Max for the Z a planet could spawn.
 
+    [HideInInspector]
     public List<Vector3> occupiedPlanetPositions; //The positons of spawned planets.
 
     [HideInInspector]
     public string[] rotationOptions = new string[] { "rotateUp", "rotateDown", "rotateLeft", "RotateRight" };   //Options for the rotation directions
     [HideInInspector]
     public string rotationDirection;    //The choosen rotation.
-
+    [HideInInspector]
     public float planetsMinRotationSpeed;  //A planets minimum rotation speed.
+    [HideInInspector]
     public float planetsMaxRotationSpeed;  //A planets maximum rotation speed.
+    [HideInInspector]
     private Vector3 desiredPlanetPosition; //Where the planet is trying to spawn.
+    [HideInInspector]
     private float planetSizeChosen;
-
 
     //Moons
     public List<GameObject> moons;    //List of planets.
+    [HideInInspector]
     public List<GameObject> activeMoons;
 
+    [HideInInspector]
     public float moonSpeed;
 
+    [HideInInspector]
     public float moonMinSize;   //Min size a planet could be.
+    [HideInInspector]
     public float moonMaxSize;   //Max size a planet could be.
 
+    [HideInInspector]
     public float moonsMinX; //Max for the X a planet could spawn.
+    [HideInInspector]
     public float moonsMaxX; //Min for the X a planet could spawn.
+    [HideInInspector]
     public float moonsMinY; //Min for the Y a planet could spawn.
+    [HideInInspector]
     public float moonsMaxY; //Max for the Y a planet could spawn.
+    [HideInInspector]
     public float moonsMinZ; //Min for the Z a planet could spawn.
+    [HideInInspector]
     public float moonsMaxZ; //Max for the Z a planet could spawn.
 
+    [HideInInspector]
     public List<Vector3> occupiedMoonPositions; //The positons of spawned planets.
 
+    [HideInInspector]
     private float moonSizeChosen;
+    [HideInInspector]
     public float moonMinRotationSpeed;  //A planets minimum rotation speed.
+    [HideInInspector]
     public float moonMaxRotationSpeed;  //A planets maximum rotation speed.
+    [HideInInspector]
     private Vector3 desiredMoonPosition; //Where the planet is trying to spawn.
 
     //Sun
+    [HideInInspector]
     public List<GameObject> activeSuns;
-    public GameObject sun;
-    public float sunMinSize;   //Min size a sun could be.
-    public float sunMaxSize;   //Max size a sun could be.
+    public List<GameObject> sun;
 
+    [HideInInspector]
+    public float sunMinSize;   //Min size a sun could be.
+    [HideInInspector]
+    public float sunMaxSize;   //Max size a sun could be.
+    [HideInInspector]
     public float sunsMinX; //Max for the X a planet could spawn.
+    [HideInInspector]
     public float sunsMaxX; //Min for the X a planet could spawn.
+    [HideInInspector]
     public float sunsMinY; //Min for the Y a planet could spawn.
+    [HideInInspector]
     public float sunsMaxY; //Max for the Y a planet could spawn.
+    [HideInInspector]
     public float sunsMinZ; //Min for the Z a planet could spawn.
+    [HideInInspector]
     public float sunsMaxZ; //Max for the Z a planet could spawn.
 
+    [HideInInspector]
     public float sunMinRotationSpeed;
-    public float sunMaxRotationSPeed;
+    [HideInInspector]
+    public float sunMaxRotationSpeed;
 
+    [HideInInspector]
     private Vector3 desiredSunPosition; //Where the planet is trying to spawn.
+    [HideInInspector]
     private float sunSizeChosen;
+    [HideInInspector]
     public Vector3 localRotationSpeed;
 
     void Start ()
     {
-        //localRotationSpeed = new Vector3(Random.Range())
         Suns();
         Planets();
         Moons();
@@ -110,13 +157,8 @@ public class GalaxySculptor : MonoBehaviour
             }
             moonClone.tag = "Moon";
             moonClone.AddComponent<ObjectRotation>();  //Add the rotation script to the gameobject.
-         //   moonClone.AddComponent<Orbit>(); //adding the orbiting script to the moon.
-         //   moonClone.GetComponent<Orbit>().target = activePlanets[Random.Range(0, activePlanets.Count)].transform;
-          //  moonClone.GetComponent<Orbit>().speed = moonSpeed;
             //Scale the gameObject according to public variables
             rotationDirection = rotationOptions[Random.Range(0, rotationOptions.Length)];   //Choose a random rotation for the moon.
-
-            //Place the gameObject randomly in the scene.
         }
 	}
     void Planets()
@@ -145,24 +187,18 @@ public class GalaxySculptor : MonoBehaviour
             }
             planetClone.tag = "Planet";
             planetClone.AddComponent<ObjectRotation>();  //Add the rotation script to the gameobject.
-           // planetClone.AddComponent<Orbit>(); //adding the orbiting script to the planet
-           // planetClone.GetComponent<Orbit>().target = activeSuns[Random.Range(0, activeSuns.Count)].transform;
-            //Scale the gameObject according to public variables
-           // planetClone.GetComponent<Orbit>().speed = planetSpeed;
             planetSizeChosen = Random.Range(planetMinSize, planetMaxSize);    //Chooses a random size based upon the min and max sizes chosen.
             
             rotationDirection = rotationOptions[Random.Range(0, rotationOptions.Length)];   //Choose a random rotation for the planet.
-           //clone.GetComponent<ObjectRotation>().ChooseRotation(clone);
            //Place the gameObject randomly in the scene.
         }
     }
     public void Suns()
     {
         desiredPlanetPosition = new Vector3(Random.Range(sunsMinX, sunsMaxX), Random.Range(sunsMinY, sunsMaxY), Random.Range(sunsMinZ, sunsMaxZ)); //finding a desired location to place the sun similarly to the planets
-        GameObject sunClone = Instantiate(sun, transform.position, transform.rotation) as GameObject; //Creating the sun
+        GameObject sunClone = Instantiate(sun[Random.Range(0, sun.Count)], transform.position, transform.rotation) as GameObject; //Creating the sun
         activeSuns.Add(sunClone);
         sunClone.transform.position = desiredSunPosition;  //Move the sun to the desired position
-        //clone.AddComponent<ObjectRotation>(); //adding the roation script to the sun
         sunClone.tag = "Sun"; //asiging the tag, "Sun," the game object
         sunSizeChosen = Random.Range(sunMinSize, sunMaxSize);    //Chooses a random size based upon the min and max sizes chosen.
         sunClone.transform.localScale = new Vector3(sunSizeChosen, sunSizeChosen, sunSizeChosen); //Scales the gameobject to that size.
